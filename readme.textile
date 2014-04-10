@@ -1,0 +1,8 @@
+h1. PyMeta 2 - OMeta 2 in Python
+
+PyMeta 2 is a Python implementation of OMeta which is an object-oriented language for pattern matching, based on a variant of Parsing Expression Grammars (PEGs). It's a port of the old PyMeta implementation to the simplified OMeta 2 syntax.
+
+Links:
+
+1. "OMeta":http://tinlizzie.org/ometa/
+2. "Pymeta2":http://www.allbuttonspressed.com/projects/pymeta
