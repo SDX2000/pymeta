@@ -59,7 +59,7 @@ class _MaybeParseError(Exception):
         Return a pretty string containing error info about string parsing failure.
         """
         reason = self.formatReason()
-        if not isinstance(input, basestring):
+        if not isinstance(input, str):
             return ("Parse error at input %s: %s\n" % (input, reason))
         lines = input.split('\n')
         counter = 0
@@ -129,7 +129,7 @@ class character(str):
         """
         raise TypeError("Characters are not iterable")
 
-class unicodeCharacter(unicode):
+class unicodeCharacter(str):
     """
     Type to distinguish characters from Unicode strings.
     """
@@ -151,7 +151,7 @@ class InputStream(object):
         """
         if isinstance(iterable, str):
             data = [character(c) for c in iterable]
-        elif isinstance(iterable, unicode):
+        elif isinstance(iterable, str):
             data = [unicodeCharacter(c) for c in iterable]
         else:
             data = list(iterable)
@@ -312,7 +312,7 @@ class OMetaBase(object):
         @param args: A sequence of arguments to it.
         """
         if args:
-            if rule.func_code.co_argcount - 1 != len(args):
+            if rule.__code__.co_argcount - 1 != len(args):
                 for arg in args[::-1]:
                     self.input = ArgInput(arg, self.input)
                 return rule()
@@ -615,7 +615,7 @@ class OMetaBase(object):
                     stack.append(delimiters[c])
                 elif len(stack) > 0 and c == stack[-1]:
                     stack.pop()
-                elif c in delimiters.values():
+                elif c in list(delimiters.values()):
                     raise _MaybeParseError(self.input.position,
                                            expected("Python expression"))
                 elif c in "\"'":
